@@ -278,6 +278,82 @@
   will-change: transform;
 }
 
+/* Enhanced Hero Section Styling */
+.hero-section {
+  position: relative;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  color: white;
+  overflow: hidden;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-cta .btn {
+  font-weight: 600;
+  border-radius: 50px;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-content-wrapper {
+  z-index: 2;
+  position: relative;
+}
+
+.hero-visual {
+  z-index: 2;
+  position: relative;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.hero-stats > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stats h3 {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+}
+
+.hero-stats p {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.hero-parallax-bg {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  z-index: 0;
+}
+
 /* Enhanced Hero Shapes Animation */
 .hero-shape {
   opacity: 0;

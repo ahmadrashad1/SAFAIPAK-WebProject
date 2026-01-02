@@ -135,11 +135,7 @@ const hexToRgb = (hex) => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    // Get theme from localStorage or default to purple
-    const savedTheme = localStorage.getItem('safaipak-theme');
-    return savedTheme && themes[savedTheme] ? savedTheme : 'purple';
-  });
+  const [currentTheme, setCurrentTheme] = useState('purple');
 
   useEffect(() => {
     // Apply theme to document root

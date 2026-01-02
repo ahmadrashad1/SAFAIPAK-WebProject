@@ -8,7 +8,11 @@ import { useEffect, useState } from "react";
 import AboutPage from "./pages/About.jsx";
 import ProvidersPage from "./pages/Providers.jsx";
 import AnalyticsPage from "./pages/Analytics.jsx";
-import ThemeSelector from "./components/ThemeSelector.jsx";
+import Reviews from "./pages/Reviews.jsx";
+import ProviderDashboard from "./pages/ProviderDashboard.jsx";
+import OutbreakAlerts from "./pages/OutbreakAlerts.jsx";
+import FarmerPortal from "./pages/FarmerPortal.jsx";
+import ServiceMap from "./pages/ServiceMap.jsx";
 import ScrollProgress from "./components/ScrollProgress.jsx";
 import AnimatedSection from "./components/AnimatedSection.jsx";
 import { useParallax } from "./hooks/useScrollAnimation.js";
@@ -33,45 +37,253 @@ const Hero = () => {
   const [parallaxRef, parallaxOffset] = useParallax(0.3);
 
   return (
-    <header className="hero-section">
-      <div className="hero-parallax-bg" ref={parallaxRef} style={{ transform: `translateY(${parallaxOffset}px)` }}></div>
-      <div className="container">
-        <div className="row align-items-center min-vh-100">
+    <header className="hero-section" style={{ position: "relative", overflow: "hidden" }}>
+      <div 
+        className="hero-parallax-bg" 
+        ref={parallaxRef} 
+        style={{ 
+          transform: `translateY(${parallaxOffset}px)`,
+          position: "absolute",
+          top: "-100px",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)",
+          zIndex: 0,
+        }}
+      />
+      
+      {/* Animated gradient background elements */}
+      <div style={{
+        position: "absolute",
+        top: "10%",
+        right: "5%",
+        width: "400px",
+        height: "400px",
+        background: "radial-gradient(circle, rgba(240, 147, 251, 0.3) 0%, transparent 70%)",
+        borderRadius: "50%",
+        filter: "blur(60px)",
+        zIndex: 0,
+      }} />
+      <div style={{
+        position: "absolute",
+        bottom: "-100px",
+        left: "10%",
+        width: "500px",
+        height: "500px",
+        background: "radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%)",
+        borderRadius: "50%",
+        filter: "blur(80px)",
+        zIndex: 0,
+      }} />
+      
+      <div className="container" style={{ position: "relative", zIndex: 1 }}>
+        <div className="row align-items-center" style={{ minHeight: "100vh", paddingTop: "80px", paddingBottom: "80px" }}>
           <div className="col-lg-6 hero-content-wrapper">
             <AnimatedSection animation="fadeIn" delay={0}>
-              <h1 className="hero-title">
-                Build Like a Pro<br />
-                <span className="hero-subtitle">With Intelligent Sanitation Services</span>
+              <div className="mb-3">
+                <span className="badge bg-white text-primary" style={{ fontSize: "0.9rem", padding: "8px 16px" }}>
+                  ✨ Pakistan's Premier Sanitation Platform
+                </span>
+              </div>
+            </AnimatedSection>
+            
+            <AnimatedSection animation="fadeIn" delay={100}>
+              <h1 className="hero-title" style={{
+                fontSize: "3.5rem",
+                fontWeight: "800",
+                color: "white",
+                lineHeight: "1.2",
+                marginBottom: "20px",
+                textShadow: "0 2px 10px rgba(0, 0, 0, 0.1)"
+              }}>
+                Connect with Verified<br />
+                <span style={{ 
+                  background: "linear-gradient(120deg, #fff 0%, #f0f0f0 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text"
+                }}>
+                  Sanitation Experts
+                </span>
               </h1>
             </AnimatedSection>
+            
             <AnimatedSection animation="fadeIn" delay={200}>
-              <p className="hero-description">
-                Create and scale better sanitation solutions with fast and flexible services that adapt to your business needs across Pakistan.
+              <p className="hero-description" style={{
+                fontSize: "1.2rem",
+                color: "rgba(255, 255, 255, 0.9)",
+                lineHeight: "1.8",
+                marginBottom: "30px",
+                maxWidth: "500px"
+              }}>
+                From emergency pest control to preventive sanitation, access certified providers across all of Pakistan with instant quotes and 24/7 emergency response.
               </p>
             </AnimatedSection>
+
+            <AnimatedSection animation="fadeIn" delay={300}>
+              <div className="hero-stats d-flex gap-4 mb-4" style={{ marginBottom: "30px" }}>
+                <div style={{ borderRight: "1px solid rgba(255,255,255,0.3)", paddingRight: "20px" }}>
+                  <h3 style={{ color: "white", fontSize: "2rem", margin: "0 0 5px 0" }}>11+</h3>
+                  <p style={{ color: "rgba(255,255,255,0.8)", margin: 0, fontSize: "0.9rem" }}>Verified Providers</p>
+                </div>
+                <div>
+                  <h3 style={{ color: "white", fontSize: "2rem", margin: "0 0 5px 0" }}>6+</h3>
+                  <p style={{ color: "rgba(255,255,255,0.8)", margin: 0, fontSize: "0.9rem" }}>Active Bookings</p>
+                </div>
+              </div>
+            </AnimatedSection>
+            
             <AnimatedSection animation="fadeIn" delay={400}>
               <div className="hero-cta d-flex gap-3 flex-wrap">
-                <Link to="/book" className="btn btn-hero-primary">
-                  Book a Service
+                <Link to="/book" className="btn btn-hero-primary" style={{
+                  background: "white",
+                  color: "#667eea",
+                  border: "none",
+                  padding: "14px 32px",
+                  fontSize: "1.1rem",
+                  fontWeight: "600",
+                  borderRadius: "50px",
+                  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.15)",
+                  transition: "all 0.3s ease",
+                  cursor: "pointer"
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = "translateY(-3px)";
+                  e.target.style.boxShadow = "0 12px 35px rgba(0, 0, 0, 0.25)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = "translateY(0)";
+                  e.target.style.boxShadow = "0 8px 25px rgba(0, 0, 0, 0.15)";
+                }}>
+                  🚀 Book Emergency Service
                 </Link>
-                <Link to="/services" className="btn btn-hero-secondary">
-                  Explore Services
+                <Link to="/providers" className="btn btn-hero-secondary" style={{
+                  background: "rgba(255, 255, 255, 0.15)",
+                  color: "white",
+                  border: "2px solid rgba(255, 255, 255, 0.3)",
+                  padding: "12px 30px",
+                  fontSize: "1.1rem",
+                  fontWeight: "600",
+                  borderRadius: "50px",
+                  backdropFilter: "blur(10px)",
+                  transition: "all 0.3s ease",
+                  cursor: "pointer"
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = "rgba(255, 255, 255, 0.25)";
+                  e.target.style.borderColor = "rgba(255, 255, 255, 0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = "rgba(255, 255, 255, 0.15)";
+                  e.target.style.borderColor = "rgba(255, 255, 255, 0.3)";
+                }}>
+                  👥 Find Providers
                 </Link>
               </div>
             </AnimatedSection>
           </div>
-          <div className="col-lg-6 hero-visual">
+          
+          <div className="col-lg-6 hero-visual" style={{ position: "relative" }}>
             <AnimatedSection animation="fadeInRight" delay={300}>
-              <div className="hero-illustration">
-                {/* Abstract shapes similar to Voximplant */}
-                <div className="hero-shape hero-shape-1"></div>
-                <div className="hero-shape hero-shape-2"></div>
-                <div className="hero-shape hero-shape-3"></div>
+              <div className="hero-illustration" style={{
+                position: "relative",
+                width: "100%",
+                height: "500px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+                {/* Floating cards animation */}
+                <div style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}>
+                  <div style={{
+                    position: "absolute",
+                    width: "200px",
+                    height: "250px",
+                    background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
+                    border: "2px solid rgba(255,255,255,0.2)",
+                    borderRadius: "20px",
+                    backdropFilter: "blur(10px)",
+                    padding: "20px",
+                    top: "-40px",
+                    right: "-20px",
+                    animation: "float 6s ease-in-out infinite",
+                    boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+                  }}>
+                    <div style={{ fontSize: "3rem", marginBottom: "10px" }}>🚨</div>
+                    <p style={{ color: "white", fontSize: "0.9rem", margin: 0 }}>
+                      <strong>Emergency</strong>
+                      <br />24/7 Response
+                    </p>
+                  </div>
+                  
+                  <div style={{
+                    position: "absolute",
+                    width: "200px",
+                    height: "200px",
+                    background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%)",
+                    border: "2px solid rgba(255,255,255,0.2)",
+                    borderRadius: "20px",
+                    backdropFilter: "blur(10px)",
+                    padding: "20px",
+                    bottom: "20px",
+                    left: "-50px",
+                    animation: "float 5s ease-in-out infinite reverse",
+                    boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+                  }}>
+                    <div style={{ fontSize: "3rem", marginBottom: "10px" }}>⭐</div>
+                    <p style={{ color: "white", fontSize: "0.9rem", margin: 0 }}>
+                      <strong>Verified</strong>
+                      <br />Providers
+                    </p>
+                  </div>
+                  
+                  <div style={{
+                    position: "absolute",
+                    width: "220px",
+                    height: "220px",
+                    background: "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 100%)",
+                    border: "2px solid rgba(255,255,255,0.2)",
+                    borderRadius: "20px",
+                    backdropFilter: "blur(10px)",
+                    padding: "20px",
+                    bottom: "-30px",
+                    right: "-30px",
+                    animation: "float 4s ease-in-out infinite",
+                    boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+                  }}>
+                    <div style={{ fontSize: "3rem", marginBottom: "10px" }}>💚</div>
+                    <p style={{ color: "white", fontSize: "0.9rem", margin: 0 }}>
+                      <strong>Instant</strong>
+                      <br />Quotes
+                    </p>
+                  </div>
+                </div>
               </div>
             </AnimatedSection>
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        
+        .hero-section {
+          position: relative;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+          color: white;
+        }
+      `}</style>
     </header>
   );
 };
@@ -330,22 +542,105 @@ const ContactForm = () => {
     name: "",
     email: "",
     phone: "",
+    city: "",
+    serviceType: "",
     message: "",
-    source: ""
+    source: "",
+    urgency: "normal",
+    isRecurring: false,
+    recurringFrequency: "",
+    scheduledFor: "",
+    budgetRange: "",
+    certificationLevel: "",
+    availability: "",
   });
   const [status, setStatus] = useState({ type: "", message: "" });
+  const [services, setServices] = useState([]);
+  const [quote, setQuote] = useState(null);
+  const [loadingQuote, setLoadingQuote] = useState(false);
+
+  useEffect(() => {
+    // Fetch services for dropdown
+    api.get("/api/services")
+      .then((res) => {
+        if (res.data && res.data.length > 0) {
+          const allServices = res.data.flatMap((cat) =>
+            cat.services.map((s) => s.split(":")[0].trim())
+          );
+          setServices([...new Set(allServices)]);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
+    
+    // Auto-generate quote when relevant fields change
+    if (["serviceType", "city", "urgency"].includes(e.target.name)) {
+      generateQuoteDebounced();
+    }
+  };
+
+  const generateQuoteDebounced = () => {
+    if (!formData.serviceType || !formData.city) return;
+    
+    setLoadingQuote(true);
+    setTimeout(() => {
+      api.post("/api/bookings/quote", {
+        serviceType: formData.serviceType,
+        city: formData.city,
+        urgency: formData.urgency,
+      })
+        .then((res) => {
+          setQuote(res.data);
+          setFormData((prev) => ({ ...prev, amount: res.data.quote }));
+        })
+        .catch(() => {})
+        .finally(() => setLoadingQuote(false));
+    }, 500);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus({ type: "loading", message: "Submitting..." });
+    
     try {
-      await api.post("/api/bookings", formData);
-      setStatus({ type: "success", message: "Thank you! We'll contact you shortly." });
-      setFormData({ name: "", email: "", phone: "", message: "", source: "" });
+      const bookingData = {
+        ...formData,
+        details: formData.message,
+        scheduledFor: formData.scheduledFor ? new Date(formData.scheduledFor).toISOString() : undefined,
+      };
+
+      const endpoint = formData.isRecurring && formData.recurringFrequency
+        ? "/api/bookings/recurring"
+        : "/api/bookings";
+
+      if (formData.isRecurring && formData.recurringFrequency) {
+        bookingData.frequency = formData.recurringFrequency;
+        bookingData.startDate = formData.scheduledFor || new Date().toISOString();
+      }
+
+      const response = await api.post(endpoint, bookingData);
+      setStatus({ 
+        type: "success", 
+        message: "Thank you! Your booking has been submitted. We'll contact you shortly. After service completion, you can leave a review from 'My Bookings' page." 
+      });
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        city: "",
+        serviceType: "",
+        message: "",
+        source: "",
+        urgency: "normal",
+        isRecurring: false,
+        recurringFrequency: "",
+        scheduledFor: "",
+      });
+      setQuote(null);
     } catch (error) {
       setStatus({ type: "error", message: "Submission failed. Please try again." });
     }
@@ -380,7 +675,7 @@ const ContactForm = () => {
                   />
                 </div>
                 <div className="col-md-6">
-                  <label className="form-label">Business Email *</label>
+                  <label className="form-label">Email *</label>
                   <input
                     type="email"
                     name="email"
@@ -402,6 +697,57 @@ const ContactForm = () => {
                   />
                 </div>
                 <div className="col-md-6">
+                  <label className="form-label">City *</label>
+                  <input
+                    type="text"
+                    name="city"
+                    required
+                    value={formData.city}
+                    onChange={handleChange}
+                    className="form-control"
+                    placeholder="e.g., Karachi, Lahore, Islamabad"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label">Service Type *</label>
+                  <select
+                    name="serviceType"
+                    required
+                    value={formData.serviceType}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
+                    <option value="">Select Service...</option>
+                    {services.map((service, idx) => (
+                      <option key={idx} value={service}>{service}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label">Urgency *</label>
+                  <select
+                    name="urgency"
+                    required
+                    value={formData.urgency}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
+                    <option value="normal">Normal</option>
+                    <option value="emergency">Emergency (24/7)</option>
+                  </select>
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label">Preferred Date</label>
+                  <input
+                    type="datetime-local"
+                    name="scheduledFor"
+                    value={formData.scheduledFor}
+                    onChange={handleChange}
+                    className="form-control"
+                    min={new Date().toISOString().slice(0, 16)}
+                  />
+                </div>
+                <div className="col-md-6">
                   <label className="form-label">How did you hear about us? *</label>
                   <select
                     name="source"
@@ -417,8 +763,95 @@ const ContactForm = () => {
                     <option value="other">Other</option>
                   </select>
                 </div>
+                <div className="col-md-6">
+                  <label className="form-label">Budget Range</label>
+                  <select
+                    name="budgetRange"
+                    value={formData.budgetRange}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
+                    <option value="">Any Budget</option>
+                    <option value="under-2000">Under PKR 2,000</option>
+                    <option value="2000-5000">PKR 2,000 - 5,000</option>
+                    <option value="5000-10000">PKR 5,000 - 10,000</option>
+                    <option value="10000-20000">PKR 10,000 - 20,000</option>
+                    <option value="above-20000">Above PKR 20,000</option>
+                  </select>
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label">Preferred Provider Certification</label>
+                  <select
+                    name="certificationLevel"
+                    value={formData.certificationLevel}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
+                    <option value="">Any Certification</option>
+                    <option value="basic">Basic Certified</option>
+                    <option value="intermediate">Intermediate Certified</option>
+                    <option value="advanced">Advanced Certified</option>
+                    <option value="expert">Expert Certified</option>
+                  </select>
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label">Availability Required</label>
+                  <select
+                    name="availability"
+                    value={formData.availability}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
+                    <option value="">Any Availability</option>
+                    <option value="same-day">Same Day</option>
+                    <option value="next-day">Next Day</option>
+                    <option value="this-week">This Week</option>
+                    <option value="flexible">Flexible</option>
+                  </select>
+                </div>
+                {quote && (
+                  <div className="col-12">
+                    <div className="alert alert-info">
+                      <strong>Instant Quote:</strong> PKR {quote.quote.toLocaleString()}
+                      {loadingQuote && <span className="ms-2">(updating...)</span>}
+                    </div>
+                  </div>
+                )}
                 <div className="col-12">
-                  <label className="form-label">Message *</label>
+                  <div className="form-check mb-3">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id="recurring"
+                      name="isRecurring"
+                      checked={formData.isRecurring}
+                      onChange={handleChange}
+                    />
+                    <label className="form-check-label" htmlFor="recurring">
+                      Set up recurring service
+                    </label>
+                  </div>
+                  {formData.isRecurring && (
+                    <div className="mb-3">
+                      <label className="form-label">Recurring Frequency *</label>
+                      <select
+                        name="recurringFrequency"
+                        required={formData.isRecurring}
+                        value={formData.recurringFrequency}
+                        onChange={handleChange}
+                        className="form-select"
+                      >
+                        <option value="">Select frequency...</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="quarterly">Quarterly</option>
+                        <option value="yearly">Yearly</option>
+                      </select>
+                    </div>
+                  )}
+                </div>
+                <div className="col-12">
+                  <label className="form-label">Message / Service Details *</label>
                   <textarea
                     name="message"
                     required
@@ -426,6 +859,7 @@ const ContactForm = () => {
                     value={formData.message}
                     onChange={handleChange}
                     className="form-control"
+                    placeholder="Please describe your service requirements..."
                   />
                 </div>
                 <div className="col-12">
@@ -435,8 +869,8 @@ const ContactForm = () => {
                       By clicking here I have read and accept SafaiPak Privacy Policy.
                     </label>
                   </div>
-                  <button type="submit" className="btn btn-contact-submit w-100">
-                    {status.type === "loading" ? "Submitting..." : "Submit"}
+                  <button type="submit" className="btn btn-contact-submit w-100" disabled={status.type === "loading"}>
+                    {status.type === "loading" ? "Submitting..." : "Book Service"}
                   </button>
                   {status.message && (
                     <div className={`alert mt-3 ${status.type === "success" ? "alert-success" : "alert-danger"}`}>
@@ -699,6 +1133,7 @@ const Footer = () => (
           <ul className="footer-links">
             <li><a href="#contact">Contact Support</a></li>
             <li><Link to="/book">Book Service</Link></li>
+            <li><Link to="/reviews">⭐ Leave a Review</Link></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
         </div>
@@ -734,18 +1169,22 @@ const Navigation = () => (
             <span className="nav-link">Services</span>
             <div className="dropdown-menu">
               <Link to="/services" className="dropdown-item">All Services</Link>
+              <Link to="/farmer-portal" className="dropdown-item">🌾 Farmer Portal</Link>
               <Link to="/services#pest-control" className="dropdown-item">Pest Control</Link>
               <Link to="/services#sanitation" className="dropdown-item">Sanitation</Link>
               <Link to="/services#agricultural" className="dropdown-item">Agricultural</Link>
             </div>
           </div>
           <Link className="nav-link" to="/providers">Providers</Link>
+          <Link className="nav-link" to="/service-map">🗺️ Map</Link>
+          <Link className="nav-link" to="/outbreak-alerts">🚨 Outbreaks</Link>
           <Link className="nav-link" to="/analytics">Analytics</Link>
           <Link className="nav-link" to="/about">About</Link>
+          <Link className="nav-link" to="/reviews">⭐ Reviews</Link>
+          <Link className="nav-link" to="/provider-dashboard">Provider Login</Link>
           <Link className="nav-link" to="/book">Book</Link>
         </div>
         <div className="navbar-actions">
-          <ThemeSelector />
           <Link to="/book" className="btn btn-nav-primary">Contact Us</Link>
           <Link to="/book" className="btn btn-nav-secondary">Book Service</Link>
         </div>
@@ -824,6 +1263,46 @@ function App() {
           element={
             <Layout>
               <ContactForm />
+            </Layout>
+          }
+        />
+        <Route
+          path="/reviews"
+          element={
+            <Layout>
+              <Reviews />
+            </Layout>
+          }
+        />
+        <Route
+          path="/provider-dashboard"
+          element={
+            <Layout>
+              <ProviderDashboard />
+            </Layout>
+          }
+        />
+        <Route
+          path="/outbreak-alerts"
+          element={
+            <Layout>
+              <OutbreakAlerts />
+            </Layout>
+          }
+        />
+        <Route
+          path="/farmer-portal"
+          element={
+            <Layout>
+              <FarmerPortal />
+            </Layout>
+          }
+        />
+        <Route
+          path="/service-map"
+          element={
+            <Layout>
+              <ServiceMap />
             </Layout>
           }
         />
